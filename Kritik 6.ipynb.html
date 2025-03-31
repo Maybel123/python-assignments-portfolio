@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Kritik 6.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #0033b3;}
+.s2 { color: #080808;}
+.s3 { color: #1750eb;}
+.s4 { color: #067d17;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Kritik 6.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% 
+</span><span class="s1">import </span><span class="s2">numpy </span><span class="s1">as </span><span class="s2">np</span>
+<span class="s1">import </span><span class="s2">matplotlib.pyplot </span><span class="s1">as </span><span class="s2">plt</span>
+
+<span class="s1">def </span><span class="s2">normal_density(mean, variance, x):</span>
+    <span class="s2">exponent = -((x - mean) ** </span><span class="s3">2</span><span class="s2">) / (</span><span class="s3">2 </span><span class="s2">* variance)</span>
+    <span class="s1">return </span><span class="s2">(</span><span class="s3">1 </span><span class="s2">/ (np.sqrt(</span><span class="s3">2 </span><span class="s2">* np.pi*variance))) * np.exp(exponent)</span>
+
+<span class="s2">x_values = np.linspace(-</span><span class="s3">10</span><span class="s2">, </span><span class="s3">10</span><span class="s2">, </span><span class="s3">400</span><span class="s2">)</span>
+<span class="s2">settings = [(</span><span class="s3">0</span><span class="s2">, </span><span class="s3">1</span><span class="s2">), (</span><span class="s3">0</span><span class="s2">, </span><span class="s3">5</span><span class="s2">), (</span><span class="s3">2</span><span class="s2">, </span><span class="s3">0.5</span><span class="s2">)]</span>
+
+<span class="s2">plt.figure(figsize=(</span><span class="s3">10</span><span class="s2">, </span><span class="s3">6</span><span class="s2">))</span>
+<span class="s1">for </span><span class="s2">mean, variance </span><span class="s1">in </span><span class="s2">settings:</span>
+    <span class="s2">y_values = [normal_density(mean, variance, x) </span><span class="s1">for </span><span class="s2">x </span><span class="s1">in </span><span class="s2">x_values]</span>
+    <span class="s2">plt.plot(x_values, y_values, label=</span><span class="s4">f&quot;μ = </span><span class="s5">{</span><span class="s2">mean</span><span class="s5">}</span><span class="s4">, σ² = </span><span class="s5">{</span><span class="s2">variance</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+
+<span class="s2">plt.title(</span><span class="s4">&quot;Normal Density Function for Different μ and σ²&quot;</span><span class="s2">)</span>
+<span class="s2">plt.xlabel(</span><span class="s4">&quot;x&quot;</span><span class="s2">)</span>
+<span class="s2">plt.ylabel(</span><span class="s4">&quot;f_X(x)&quot;</span><span class="s2">)</span>
+<span class="s2">plt.legend()</span>
+<span class="s2">plt.grid(</span><span class="s1">True</span><span class="s2">)</span>
+<span class="s2">plt.show()</span>
+
+<span class="s1">def </span><span class="s2">integration(mean, variance, a, b):</span>
+    <span class="s2">num_points = </span><span class="s3">100000  </span>
+    <span class="s2">x_values = np.linspace(a, b, num_points)</span>
+    <span class="s2">dx = (b - a) / num_points</span>
+    <span class="s2">total_area = </span><span class="s3">0</span>
+    <span class="s1">for </span><span class="s2">x </span><span class="s1">in </span><span class="s2">x_values:</span>
+        <span class="s2">total_area += normal_density(mean, variance, x) * dx</span>
+    <span class="s1">return </span><span class="s2">total_area</span>
+
+<span class="s2">mean_height = </span><span class="s3">171  </span>
+<span class="s2">variance_height = </span><span class="s3">7.1 </span><span class="s2">** </span><span class="s3">2 </span>
+<span class="s2">probability = integration(mean_height, variance_height, </span><span class="s3">162</span><span class="s2">, </span><span class="s3">190</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s4">f&quot;Probability: </span><span class="s5">{</span><span class="s2">probability</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+
+<span class="s1">def </span><span class="s2">expected_value_integration(mean, variance, a, b):</span>
+    <span class="s2">num_points = </span><span class="s3">100000 </span>
+    <span class="s2">x_values = np.linspace(a, b, num_points)</span>
+    <span class="s2">dx = (b - a) / num_points</span>
+    <span class="s2">total_area = </span><span class="s3">0</span>
+    <span class="s1">for </span><span class="s2">x </span><span class="s1">in </span><span class="s2">x_values:</span>
+        <span class="s2">total_area += x * normal_density(mean, variance, x) * dx</span>
+    <span class="s1">return </span><span class="s2">total_area</span>
+
+<span class="s2">expected_value_integration(</span><span class="s3">171</span><span class="s2">, </span><span class="s3">7.1 </span><span class="s2">** </span><span class="s3">2</span><span class="s2">, -</span><span class="s3">100000</span><span class="s2">, </span><span class="s3">100000</span><span class="s2">)</span>
+
+<span class="s1">def </span><span class="s2">expected_dosage_integration(mean, variance, a, b):</span>
+    <span class="s2">num_points = </span><span class="s3">100000 </span>
+    <span class="s2">x_values = np.linspace(a, b, num_points)</span>
+    <span class="s2">dx = (b - a) / num_points</span>
+    <span class="s2">total_area = </span><span class="s3">0</span>
+    <span class="s1">for </span><span class="s2">x </span><span class="s1">in </span><span class="s2">x_values:</span>
+        <span class="s2">total_area += (</span><span class="s3">2.83 </span><span class="s2">* x ** </span><span class="s3">2</span><span class="s2">) * normal_density(mean, variance, x) * dx</span>
+    <span class="s1">return </span><span class="s2">total_area</span>
+
+<span class="s2">expected_dosage_integration(</span><span class="s3">171</span><span class="s2">, </span><span class="s3">7.1 </span><span class="s2">** </span><span class="s3">2</span><span class="s2">, -</span><span class="s3">100000</span><span class="s2">, </span><span class="s3">100000</span><span class="s2">)</span>
+
+<span class="s0">#%% 
+</span></pre>
+</body>
+</html>

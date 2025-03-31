@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Kritik 1.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #0033b3;}
+.s2 { color: #080808;}
+.s3 { color: #1750eb;}
+.s4 { color: #067d17;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Kritik 1.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% 
+</span><span class="s1">def </span><span class="s2">function(x):</span>
+    <span class="s1">if </span><span class="s2">x &lt; </span><span class="s3">0 </span><span class="s1">or </span><span class="s2">x &gt; </span><span class="s3">1</span><span class="s2">:</span>
+        <span class="s1">return </span><span class="s4">&quot;Error!&quot;</span>
+    
+    <span class="s2">a = </span><span class="s3">0</span>
+    <span class="s2">n = </span><span class="s3">0</span>
+    <span class="s2">error_bound = float(</span><span class="s4">'inf'</span><span class="s2">)</span>
+    <span class="s2">max_error = </span><span class="s3">0.0001</span>
+    
+    <span class="s1">while </span><span class="s2">error_bound &gt; max_error:</span>
+            <span class="s2">term = ((-</span><span class="s3">1</span><span class="s2">) ** n) * (x ** (</span><span class="s3">2 </span><span class="s2">* n + </span><span class="s3">1</span><span class="s2">)) / (</span><span class="s3">2 </span><span class="s2">* n + </span><span class="s3">1</span><span class="s2">)</span>
+            <span class="s2">a += term</span>
+            <span class="s2">error_bound = (x ** (</span><span class="s3">2 </span><span class="s2">* n + </span><span class="s3">1</span><span class="s2">)) / (</span><span class="s3">2 </span><span class="s2">* n + </span><span class="s3">1</span><span class="s2">)</span>
+            <span class="s2">n += </span><span class="s3">1</span>
+    <span class="s1">return </span><span class="s2">(a, n, error_bound)</span>
+
+<span class="s2">test_values = [-</span><span class="s3">1</span><span class="s2">, </span><span class="s3">0</span><span class="s2">, </span><span class="s3">0.25</span><span class="s2">, </span><span class="s3">0.5</span><span class="s2">, </span><span class="s3">0.75</span><span class="s2">, </span><span class="s3">1</span><span class="s2">]</span>
+<span class="s1">for </span><span class="s2">value </span><span class="s1">in </span><span class="s2">test_values:</span>
+    <span class="s2">result = function(value)</span>
+    <span class="s2">print (</span><span class="s4">f'function(</span><span class="s5">{</span><span class="s2">value</span><span class="s5">}</span><span class="s4">) = </span><span class="s5">{</span><span class="s2">result</span><span class="s5">}</span><span class="s4">'</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span></pre>
+</body>
+</html>

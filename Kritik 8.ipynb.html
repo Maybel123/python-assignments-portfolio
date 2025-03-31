@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Kritik 8.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #0033b3;}
+.s2 { color: #080808;}
+.s3 { color: #1750eb;}
+.s4 { color: #067d17;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Kritik 8.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% 
+</span><span class="s1">import </span><span class="s2">numpy </span><span class="s1">as </span><span class="s2">np</span>
+<span class="s1">import </span><span class="s2">matplotlib.pyplot </span><span class="s1">as </span><span class="s2">plt</span>
+
+<span class="s1">def </span><span class="s2">gradient_descent(x0, y0,f, grad_f, alpha, num_iterations):</span>
+    <span class="s2">x, y = x0, y0  </span>
+    <span class="s1">for </span><span class="s2">i </span><span class="s1">in </span><span class="s2">range(num_iterations):</span>
+        <span class="s2">grad_x, grad_y = grad_f(x,y)</span>
+        
+        <span class="s2">x = x-alpha*grad_x </span>
+        <span class="s2">y = y-alpha*grad_y </span>
+
+        <span class="s1">if </span><span class="s2">i % (num_iterations // </span><span class="s3">10</span><span class="s2">) == </span><span class="s3">0</span><span class="s2">:</span>
+            <span class="s2">print(</span><span class="s4">f&quot;Interation </span><span class="s5">{</span><span class="s2">i</span><span class="s5">}</span><span class="s4">: x=</span><span class="s5">{</span><span class="s2">x</span><span class="s5">:</span><span class="s4">.4f</span><span class="s5">}</span><span class="s4">, y=</span><span class="s5">{</span><span class="s2">y</span><span class="s5">:</span><span class="s4">.4f</span><span class="s5">}</span><span class="s4">, f(x,y)=</span><span class="s5">{</span><span class="s2">f(x,y)</span><span class="s5">:</span><span class="s4">.4f</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+
+    <span class="s1">return </span><span class="s2">x, y </span>
+<span class="s0">#%% 
+</span><span class="s1">def </span><span class="s2">fun_1(x,y):</span>
+    <span class="s1">return </span><span class="s2">x**</span><span class="s3">2 </span><span class="s2">+ y**</span><span class="s3">2</span>
+
+<span class="s1">def </span><span class="s2">grad_f_1(x,y):</span>
+    <span class="s2">grad_x = </span><span class="s3">2</span><span class="s2">*x </span>
+    <span class="s2">grad_y = </span><span class="s3">2</span><span class="s2">*y </span>
+    <span class="s1">return </span><span class="s2">grad_x, grad_y</span>
+
+<span class="s2">x_min, y_min = gradient_descent(</span><span class="s3">0.1</span><span class="s2">, </span><span class="s3">0.1</span><span class="s2">, fun_1, grad_f_1, </span><span class="s3">0.1</span><span class="s2">, </span><span class="s3">10</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s4">f&quot;Final result for (0.1, 0.1): x = </span><span class="s5">{</span><span class="s2">x_min</span><span class="s5">}</span><span class="s4">, y = </span><span class="s5">{</span><span class="s2">y_min</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+
+<span class="s2">x_min, y_min = gradient_descent(-</span><span class="s3">1</span><span class="s2">, </span><span class="s3">1</span><span class="s2">, fun_1, grad_f_1, </span><span class="s3">0.01</span><span class="s2">, </span><span class="s3">100</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s4">f&quot;Final result for (-1, 1): x = </span><span class="s5">{</span><span class="s2">x_min</span><span class="s5">}</span><span class="s4">, y = </span><span class="s5">{</span><span class="s2">y_min</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s1">def </span><span class="s2">fun_2(x,y):</span>
+    <span class="s1">return </span><span class="s3">1</span><span class="s2">-np.exp(-x**</span><span class="s3">2</span><span class="s2">-(y-</span><span class="s3">2</span><span class="s2">)**</span><span class="s3">2</span><span class="s2">)-</span><span class="s3">2</span><span class="s2">*np.exp(-x**</span><span class="s3">2</span><span class="s2">-(y+</span><span class="s3">2</span><span class="s2">)**</span><span class="s3">2</span><span class="s2">)</span>
+
+<span class="s1">def </span><span class="s2">grad_f_2(x,y):</span>
+    <span class="s2">grad_x = </span><span class="s3">2</span><span class="s2">*x*np.exp(-x**</span><span class="s3">2 </span><span class="s2">- (y-</span><span class="s3">2</span><span class="s2">)**</span><span class="s3">2</span><span class="s2">) + </span><span class="s3">4</span><span class="s2">*x*np.exp(-x**</span><span class="s3">2 </span><span class="s2">- (y+</span><span class="s3">2</span><span class="s2">)**</span><span class="s3">2</span><span class="s2">) </span>
+    <span class="s2">grad_y = -(</span><span class="s3">4 </span><span class="s2">- </span><span class="s3">2</span><span class="s2">*y)*np.exp(-x**</span><span class="s3">2 </span><span class="s2">- (y-</span><span class="s3">2</span><span class="s2">)**</span><span class="s3">2</span><span class="s2">) - </span><span class="s3">2</span><span class="s2">*(-</span><span class="s3">2</span><span class="s2">*y - </span><span class="s3">4</span><span class="s2">)*np.exp(-x**</span><span class="s3">2 </span><span class="s2">- (y+</span><span class="s3">2</span><span class="s2">)**</span><span class="s3">2</span><span class="s2">)</span>
+    <span class="s1">return </span><span class="s2">grad_x, grad_y</span>
+
+<span class="s2">x_min, y_min = gradient_descent(</span><span class="s3">0</span><span class="s2">, </span><span class="s3">1</span><span class="s2">, fun_2, grad_f_2, </span><span class="s3">0.01</span><span class="s2">, </span><span class="s3">10000</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s4">f&quot;Final result for (0, 1): x = </span><span class="s5">{</span><span class="s2">x_min</span><span class="s5">}</span><span class="s4">, y = </span><span class="s5">{</span><span class="s2">y_min</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+
+<span class="s2">x_min, y_min = gradient_descent(</span><span class="s3">0</span><span class="s2">, -</span><span class="s3">1</span><span class="s2">, fun_2, grad_f_2, </span><span class="s3">0.01</span><span class="s2">, </span><span class="s3">10000</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s4">f&quot;Final result for (0, -1): x = </span><span class="s5">{</span><span class="s2">x_min</span><span class="s5">}</span><span class="s4">, y = </span><span class="s5">{</span><span class="s2">y_min</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">X=np.linspace(-</span><span class="s3">5</span><span class="s2">,</span><span class="s3">5</span><span class="s2">,</span><span class="s3">100</span><span class="s2">)</span>
+<span class="s2">Y=np.linspace(-</span><span class="s3">5</span><span class="s2">,</span><span class="s3">5</span><span class="s2">,</span><span class="s3">100</span><span class="s2">)</span>
+<span class="s2">x,y=np.meshgrid(X,Y)</span>
+<span class="s2">z= fun_2(x,y)</span>
+
+<span class="s2">fig = plt.figure()</span>
+<span class="s2">ax = fig.add_subplot(</span><span class="s3">111</span><span class="s2">, projection=</span><span class="s4">'3d'</span><span class="s2">)</span>
+<span class="s2">ax.plot_surface(x, y, z,cmap=</span><span class="s4">'viridis'</span><span class="s2">, edgecolor=</span><span class="s4">'none'</span><span class="s2">) </span>
+
+<span class="s2">ax.set_xlabel(</span><span class="s4">'X'</span><span class="s2">)</span>
+<span class="s2">ax.set_ylabel(</span><span class="s4">'Y'</span><span class="s2">)</span>
+<span class="s2">ax.set_zlabel(</span><span class="s4">'f2(x,y)'</span><span class="s2">)</span>
+<span class="s2">ax.set_title(</span><span class="s4">'Plot of f2(x,y)'</span><span class="s2">)</span></pre>
+</body>
+</html>
